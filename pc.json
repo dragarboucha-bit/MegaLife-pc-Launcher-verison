@@ -1,5 +1,5 @@
 {
-  "version": "9575b648df32",
+  "version": "fae8d469cfe8",
   "files": [
     {
       "path": "models/txd/megalogo.txd",
@@ -8,8 +8,8 @@
     },
     {
       "path": "models/txd/mlphone.txd",
-      "size": 4194600,
-      "sha256": "56169d7b8306f6c98c86cec4c9068f7f124d77376b8f7c2def864bf972c18cab"
+      "size": 4194984,
+      "sha256": "be983b6e44c0d6dfe36455d605e20a9accb17b64f0526c2e3a7faf7d883b057e"
     },
     {
       "path": "models/txd/velohost.txd",
@@ -63,10 +63,10 @@
     }
   ],
   "pack": {
-    "url": "https://www.mediafire.com/file/lp9avgi8c4l03hl/MegaLife_PC_Files.zip/file",
+    "url": "https://raw.githubusercontent.com/dragarboucha-bit/MegaLife-pc-Launcher-verison/main/packs/MegaLife_PC_Files.zip",
     "mirror": "",
-    "sha256": "197fd9ef21f5914247105df5559598cb02440871645b1769ff9adb2f9ecc3c92",
-    "size": 4225187
+    "sha256": "46ee05e2c844ec59c14fadd5d17ea588e24ff543bab2e5ef59e4e78db4023be1",
+    "size": 4225243
   },
   "launcher": {
     "build": 1,

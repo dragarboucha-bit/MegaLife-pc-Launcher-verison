@@ -7,5 +7,6 @@ MegaLifeLauncher.exe
 build_log.txt
 release/
 server_files/
-*.zip
 *.bak
+*.zip
+!packs/*.zip
