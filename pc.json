@@ -63,7 +63,7 @@
     }
   ],
   "pack": {
-    "url": "PASTE_MEDIAFIRE_LINK_OF_MegaLife_PC_Files.zip",
+    "url": "https://www.mediafire.com/file/lp9avgi8c4l03hl/MegaLife_PC_Files.zip/file",
     "mirror": "",
     "sha256": "197fd9ef21f5914247105df5559598cb02440871645b1769ff9adb2f9ecc3c92",
     "size": 4225187
@@ -72,7 +72,7 @@
     "build": 1,
     "version": "1.0.0",
     "force": true,
-    "url": "https://www.mediafire.com/file/lp9avgi8c4l03hl/MegaLife_PC_Files.zip/file",
+    "url": "",
     "mirror": "",
     "sha256": ""
   }
