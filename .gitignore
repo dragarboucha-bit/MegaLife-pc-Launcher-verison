@@ -1,0 +1,11 @@
+# the hourly server key: never on GitHub
+src/Secret.cs
+# build output and local files
+MegaLifeLauncher.exe
+*.exe.old
+*.exe.new
+build_log.txt
+release/
+server_files/
+*.zip
+*.bak

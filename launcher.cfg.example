@@ -1,0 +1,11 @@
+# Mega Life Launcher - test settings (the server address is fixed inside the exe: mega-life.top:7777)
+
+# OPTIONAL (admin tests only). Players do not need this file: without it the launcher reads
+# pc.json on GitHub and takes the files from the MediaFire ZIP written in pc.json.
+#   test (this PC):  manifest=server_files\manifest.json
+# manifest=server_files\manifest.json
+
+# What happens to cheats / mod loaders found in the game folder.
+#   quarantine = moved to  <GTA>\_MegaLife\quarantine  (out of the game, can be put back)
+#   delete     = erased for good
+cheats=quarantine
