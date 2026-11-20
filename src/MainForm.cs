@@ -598,7 +598,36 @@ namespace MegaLife
                 Config.Voice = true;
                 Config.SaveUser();
                 AddLog("SampVoice: installing");
+                StartCheck(false);
+                return;
             }
+
+            // already installed: the same button removes it (sampvoice.asi; it is not installed again
+            // until INSTALL SAMPVOICE is pressed)
+            if (GameRunning())
+            {
+                MessageBox.Show(this, "Close GTA San Andreas first.", Config.AppName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (MessageBox.Show(this, "Remove SampVoice (voice chat) from the game folder?\n\nYou can install it again with the same button.",
+                Config.AppName, MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
+            Config.Voice = false;
+            Config.SaveUser();
+            try
+            {
+                string asi = Path.Combine(Config.GtaPath, "sampvoice.asi");
+                if (File.Exists(asi))
+                {
+                    Util.ClearReadOnly(asi);
+                    File.Delete(asi);
+                }
+                AddLog("SampVoice: removed");
+            }
+            catch (Exception ex)
+            {
+                AddLog("SampVoice: could not be removed (" + ex.Message + ")");
+            }
+            Invalidate();
             StartCheck(false);
         }
 
@@ -916,7 +945,7 @@ namespace MegaLife
             bool vHot = vEnabled && hover == bVoice;
             FillRR(g, vHot ? Color.FromArgb(22, 54, 88) : Card2, bVoice.R, 8);
             StrokeRR(g, vOn ? Mint : (vHot ? Cyan : Border), bVoice.R, 8, 1f);
-            Txt(g, vOn ? "SAMPVOICE INSTALLED" : "INSTALL SAMPVOICE", fBtn, vEnabled ? (vOn ? Mint : TextC) : Dim, bVoice.R, sfCenter);
+            Txt(g, vOn ? (vHot ? "REMOVE SAMPVOICE" : "SAMPVOICE INSTALLED") : "INSTALL SAMPVOICE", fBtn, vEnabled ? (vOn ? Mint : TextC) : Dim, bVoice.R, sfCenter);
             Txt(g, "v" + Config.AppVersion, fSub, Dim, new RectangleF(29, H - 30, 200, 18), sfLeft);
 
             // status cards
