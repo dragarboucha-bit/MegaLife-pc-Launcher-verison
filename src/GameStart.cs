@@ -109,7 +109,7 @@ namespace MegaLife
         }
 
         // Starts the game connected to "host:port" as "name". Throws with a readable message on failure.
-        public static void Launch(string gta, string server, string name)
+        public static int Launch(string gta, string server, string name)
         {
             if (IntPtr.Size != 4) throw new Exception("the launcher must be built for x86 (run build.bat again)");
             int colon = server.LastIndexOf(':');
@@ -130,6 +130,7 @@ namespace MegaLife
                 throw new Win32Exception(Marshal.GetLastWin32Error(), "gta_sa.exe could not be started");
 
             bool ok = false;
+            int pid = pi.dwProcessId;
             try
             {
                 byte[] path = Encoding.Unicode.GetBytes(dll + "\0");
@@ -154,6 +155,7 @@ namespace MegaLife
                 CloseHandle(pi.hThread);
                 CloseHandle(pi.hProcess);
             }
+            return pid;
         }
     }
 }

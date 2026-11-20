@@ -16,9 +16,9 @@ namespace MegaLife
     static class Config
     {
         public const string AppName = "Mega Life Launcher";
-        public const string AppVersion = "1.0.3";
+        public const string AppVersion = "1.0.4";
         // BDEL HADY: +1 for every new launcher you publish (pc.json "launcher.build" tells players to update)
-        public const int AppBuild = 4;
+        public const int AppBuild = 5;
 
         // Online list of files + launcher update (pc.json in the public GitHub repo). The files themselves
         // come from the MediaFire ZIP written in pc.json ("pack"); launcher.cfg can still point elsewhere for tests.

@@ -669,7 +669,8 @@ namespace MegaLife
                     int l = GameStart.SecondsToNextHour();
                     if (l <= 8) System.Threading.Thread.Sleep((l + 6) * 1000);
                     else if (l >= 3594) System.Threading.Thread.Sleep((l - 3593) * 1000);
-                    GameStart.Launch(gta, server, name);
+                    int pid = GameStart.Launch(gta, server, name);
+                    CrashWatch.Start(pid, OnGameCrash);   // tells which file crashed the game, if it crashes
                 }
                 catch (Exception ex) { error = ex.Message; }
                 Ui(delegate
@@ -689,6 +690,21 @@ namespace MegaLife
             });
             t.IsBackground = true;
             t.Start();
+        }
+
+        // Called by CrashWatch (worker thread) when SA-MP reports a crash.
+        void OnGameCrash(string text)
+        {
+            Ui(delegate
+            {
+                AddLog(text);
+                if (!text.StartsWith("CRASH")) return;
+                AddLog("Crash report: " + CrashWatch.ReportFile);
+                if (WindowState == FormWindowState.Minimized) WindowState = FormWindowState.Normal;
+                Activate();
+                MessageBox.Show(this, text + "\n\nThe full report is in:\n" + CrashWatch.ReportFile +
+                    "\n\nSend it to the Mega Life staff.", Config.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            });
         }
 
         // REPAIR: the files the protection took out (graphics fixes, modloader...) go back to the game folder.
