@@ -57,7 +57,7 @@ namespace MegaLife
         System.Windows.Forms.Timer pollTimer;
 
         readonly List<Btn> buttons = new List<Btn>();
-        Btn bMin, bClose, bChange, bCheck, bOpen, bPlay, bVoice, bSrv0, bSrv1;
+        Btn bMin, bClose, bChange, bCheck, bOpen, bRepair, bPlay, bVoice, bSrv0, bSrv1;
         Btn hover;
 
         // state (only touched on the window thread)
@@ -164,11 +164,13 @@ namespace MegaLife
             bCheck = new Btn(752, 168, 84, 30, "CHECK");
             bOpen = new Btn(752, 256, 84, 30, "OPEN");
             bOpen.Visible = false;
+            bRepair = new Btn(660, 256, 84, 30, "REPAIR");   // puts the quarantined files back in the game folder
+            bRepair.Visible = false;
             bPlay = new Btn(28, 344, 292, 64, "PLAY");
             bVoice = new Btn(28, 416, 292, 32, "");
             bSrv0 = new Btn(28, 184, 142, 30, Config.ServerNames[0]);
             bSrv1 = new Btn(178, 184, 142, 30, Config.ServerNames[1]);
-            buttons.AddRange(new Btn[] { bMin, bClose, bChange, bCheck, bOpen, bPlay, bVoice, bSrv0, bSrv1 });
+            buttons.AddRange(new Btn[] { bMin, bClose, bChange, bCheck, bOpen, bRepair, bPlay, bVoice, bSrv0, bSrv1 });
 
             nameBox = new TextBox();
             nameBox.BorderStyle = BorderStyle.None;
@@ -292,6 +294,7 @@ namespace MegaLife
                 folderSub = samp ? "gta_sa.exe and SA-MP found" : "gta_sa.exe found  |  SA-MP is not installed in this folder";
                 folderTone = samp ? 2 : 3;
                 bOpen.Visible = Directory.Exists(QuarantineRoot());
+                bRepair.Visible = bOpen.Visible;
             }
             else
             {
@@ -300,6 +303,7 @@ namespace MegaLife
                 folderTone = 3;
                 ready = false;
                 bOpen.Visible = false;
+                bRepair.Visible = false;
             }
             Invalidate();
         }
@@ -437,6 +441,7 @@ namespace MegaLife
                 }
             }
             bOpen.Visible = Directory.Exists(QuarantineRoot());
+            bRepair.Visible = bOpen.Visible;
             Invalidate();
         }
 
@@ -657,6 +662,34 @@ namespace MegaLife
             t.Start();
         }
 
+        // REPAIR: the files the protection took out (graphics fixes, modloader...) go back to the game folder.
+        void RepairGame()
+        {
+            if (GameRunning())
+            {
+                MessageBox.Show(this, "Close GTA San Andreas first.", Config.AppName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (MessageBox.Show(this, "Put back in the game folder every file the protection took out?\n\n" +
+                "Use it when GTA does not start any more (for example \"requires DirectX 9.0\").\n" +
+                "Cheats are taken out again at the next check.", Config.AppName,
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
+            try
+            {
+                ScanResult r = Engine.RestoreQuarantine(Config.GtaPath);
+                AddLog("Repair: " + r.Removed.Count + " file(s) put back" + (r.Failed.Count > 0 ? ", " + r.Failed.Count + " skipped" : ""));
+                foreach (string f in r.Failed) AddLog("  skipped: " + f);
+            }
+            catch (Exception ex)
+            {
+                AddLog("Repair: " + ex.Message);
+            }
+            bOpen.Visible = Directory.Exists(QuarantineRoot());
+            bRepair.Visible = bOpen.Visible;
+            Invalidate();
+            StartCheck(false);
+        }
+
         void OpenQuarantine()
         {
             try
@@ -689,6 +722,7 @@ namespace MegaLife
         bool IsEnabled(Btn b)
         {
             if (b == bMin || b == bClose || b == bOpen) return true;
+            if (b == bRepair) return !busy && folderOk;
             if (b == bPlay || b == bVoice) return !busy && folderOk;
             if (b == bSrv0 || b == bSrv1) return !busy;
             return !busy;   // CHANGE and CHECK wait for the running check
@@ -738,6 +772,7 @@ namespace MegaLife
             else if (b == bChange) { if (ChooseFolder()) StartCheck(false); }
             else if (b == bCheck) StartCheck(false);
             else if (b == bOpen) OpenQuarantine();
+            else if (b == bRepair) RepairGame();
             else if (b == bPlay) OnPlay();
             else if (b == bVoice) OnVoice();
             else if (b == bSrv0 || b == bSrv1)
@@ -887,7 +922,7 @@ namespace MegaLife
             // status cards
             DrawCard(g, new RectangleF(348, 56, 504, 78), "GAME FOLDER", folderMain, folderSub, folderTone, sfPath, bChange);
             DrawCard(g, new RectangleF(348, 144, 504, 78), "GAME FILES", filesMain, filesSub, filesTone, sfLeft, bCheck);
-            DrawCard(g, new RectangleF(348, 232, 504, 78), "PROTECTION", protMain, protSub, protTone, sfLeft, bOpen);
+            DrawCard(g, new RectangleF(348, 232, 504, 78), "PROTECTION", protMain, protSub, protTone, sfLeft, bOpen, bRepair);
 
             // activity
             var lr = new RectangleF(348, 320, 504, 128);
@@ -1027,12 +1062,18 @@ namespace MegaLife
 
         void DrawCard(Graphics g, RectangleF r, string label, string main, string sub, int tone, StringFormat mainFormat, Btn button)
         {
+            DrawCard(g, r, label, main, sub, tone, mainFormat, button, null);
+        }
+
+        void DrawCard(Graphics g, RectangleF r, string label, string main, string sub, int tone, StringFormat mainFormat, Btn button, Btn button2)
+        {
             FillRR(g, Card, r, 10);
             StrokeRR(g, Border, r, 10, 1f);
             FillRR(g, ToneColor(tone), new RectangleF(r.X + 14, r.Y + 16, 3, r.Height - 32), 1.5f);
 
             bool hasButton = (button != null && button.Visible);
-            float tw = r.Width - 30f - 16f - (hasButton ? button.R.Width + 16f : 0f);
+            bool hasButton2 = (button2 != null && button2.Visible);
+            float tw = r.Width - 30f - 16f - (hasButton ? button.R.Width + 16f : 0f) - (hasButton2 ? button2.R.Width + 8f : 0f);
             Txt(g, label, fLabel, Slate, new RectangleF(r.X + 30, r.Y + 13, tw, 15), sfLeft);
             Txt(g, main, fMain, (tone == 4) ? Red : TextC, new RectangleF(r.X + 30, r.Y + 29, tw, 22), mainFormat);
             Txt(g, sub, fSub, Dim, new RectangleF(r.X + 30, r.Y + 53, tw, 18), sfLeft);
@@ -1044,6 +1085,14 @@ namespace MegaLife
                 FillRR(g, hot ? Color.FromArgb(22, 54, 88) : Card2, button.R, 8);
                 StrokeRR(g, hot ? Cyan : Border, button.R, 8, 1f);
                 Txt(g, button.Label, fBtn, enabled ? (hot ? Cyan : TextC) : Dim, button.R, sfCenter);
+            }
+            if (hasButton2)
+            {
+                bool enabled2 = IsEnabled(button2);
+                bool hot2 = enabled2 && hover == button2;
+                FillRR(g, hot2 ? Color.FromArgb(22, 54, 88) : Card2, button2.R, 8);
+                StrokeRR(g, hot2 ? Amber : Border, button2.R, 8, 1f);
+                Txt(g, button2.Label, fBtn, enabled2 ? (hot2 ? Amber : TextC) : Dim, button2.R, sfCenter);
             }
         }
     }

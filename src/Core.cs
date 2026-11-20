@@ -16,9 +16,9 @@ namespace MegaLife
     static class Config
     {
         public const string AppName = "Mega Life Launcher";
-        public const string AppVersion = "1.0.0";
+        public const string AppVersion = "1.0.1";
         // BDEL HADY: +1 for every new launcher you publish (pc.json "launcher.build" tells players to update)
-        public const int AppBuild = 1;
+        public const int AppBuild = 2;
 
         // Online list of files + launcher update (pc.json in the public GitHub repo). The files themselves
         // come from the MediaFire ZIP written in pc.json ("pack"); launcher.cfg can still point elsewhere for tests.
@@ -776,8 +776,10 @@ namespace MegaLife
         static readonly string[] CheatDirs = { "cleo", "moonloader", "SAMPFUNCS" };
 
         // System DLL names that the game folder never has: a copy next to gta_sa.exe is an ASI loader / injector.
+        // Graphics wrappers (d3d8 / d3d9 / d3d11 / ddraw / dxgi: Windows 10/11 fixes, ENB, ReShade) are NOT
+        // here any more: many GTA packs need them and the game stops with "requires DirectX 9.0" without them.
         static readonly string[] LoaderDlls = {
-            "d3d8.dll", "d3d9.dll", "d3d11.dll", "ddraw.dll", "dinput.dll", "dinput8.dll", "dsound.dll",
+            "dinput.dll", "dinput8.dll", "dsound.dll",
             "msacm32.dll", "msvfw32.dll", "version.dll", "wininet.dll", "winmm.dll", "winhttp.dll",
             "xinput1_3.dll", "xinput9_1_0.dll"
         };
@@ -785,6 +787,8 @@ namespace MegaLife
         // Folders where loaders pick scripts and plugins up.
         static readonly string[] ModDirs = { "scripts", "plugins", "modloader" };
         static readonly string[] ScriptExt = { ".asi", ".cs", ".cleo", ".sf", ".lua", ".luac" };
+        // modloader keeps its graphics / model mods (.asi such as SkyGfx): only scripts are taken out there.
+        static readonly string[] ModloaderScriptExt = { ".cs", ".cleo", ".sf", ".lua", ".luac" };
 
         // Removes cheat / mod loaders from the game folder. Files whose SHA-256 is in manifest "allow" are kept.
         // "Removed" = moved to <game>\_MegaLife\quarantine\<date>\ (or erased when cheats=delete).
@@ -851,9 +855,10 @@ namespace MegaLife
                 if (!Directory.Exists(full)) continue;
                 try
                 {
+                    string[] exts = d == "modloader" ? ModloaderScriptExt : ScriptExt;
                     foreach (string f in Directory.GetFiles(full, "*", SearchOption.AllDirectories))
                     {
-                        if (Array.IndexOf(ScriptExt, Path.GetExtension(f).ToLowerInvariant()) >= 0) suspects.Add(f);
+                        if (Array.IndexOf(exts, Path.GetExtension(f).ToLowerInvariant()) >= 0) suspects.Add(f);
                     }
                 }
                 catch (Exception ex) { res.Failed.Add(d + "\\ (" + ex.Message + ")"); }
@@ -873,6 +878,51 @@ namespace MegaLife
                 }
                 catch (Exception ex) { res.Failed.Add(rel + " (" + ex.Message + ")"); }
             }
+            return res;
+        }
+
+        // REPAIR: everything in <game>\_MegaLife\quarantine goes back where it was (newest first; a file that is
+        // already back in the game folder is not overwritten). Cheats are taken out again at the next check,
+        // with the current rules, so mods the game needs stay.
+        public static ScanResult RestoreQuarantine(string gta)
+        {
+            var res = new ScanResult();
+            string root = Path.GetFullPath(gta).TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
+            string q = Path.Combine(Path.Combine(root, Util.OwnDir), "quarantine");
+            if (!Directory.Exists(q)) return res;
+            string[] dates = Directory.GetDirectories(q);
+            Array.Sort(dates, StringComparer.OrdinalIgnoreCase);
+            Array.Reverse(dates);
+            foreach (string date in dates)
+            {
+                string dRoot = date.TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
+                foreach (string f in Directory.GetFiles(date, "*", SearchOption.AllDirectories))
+                {
+                    string rel = f.Substring(dRoot.Length);
+                    string dest = Path.GetFullPath(Path.Combine(root, rel));
+                    if (!dest.StartsWith(root, StringComparison.OrdinalIgnoreCase)) continue;
+                    try
+                    {
+                        if (File.Exists(dest)) { res.Failed.Add(rel + " (already in the game folder)"); continue; }
+                        Directory.CreateDirectory(Path.GetDirectoryName(dest));
+                        File.Move(f, dest);
+                        res.Removed.Add(rel);
+                    }
+                    catch (Exception ex) { res.Failed.Add(rel + " (" + ex.Message + ")"); }
+                }
+                // empty folders left by the move
+                try
+                {
+                    string[] dirs = Directory.GetDirectories(date, "*", SearchOption.AllDirectories);
+                    Array.Sort(dirs, delegate(string a, string b) { return b.Length.CompareTo(a.Length); });
+                    foreach (string d in dirs)
+                        if (Directory.GetFileSystemEntries(d).Length == 0) Directory.Delete(d);
+                    if (Directory.GetFileSystemEntries(date).Length == 0) Directory.Delete(date);
+                }
+                catch { }
+            }
+            try { if (Directory.GetFileSystemEntries(q).Length == 0) Directory.Delete(q); }
+            catch { }
             return res;
         }
 
