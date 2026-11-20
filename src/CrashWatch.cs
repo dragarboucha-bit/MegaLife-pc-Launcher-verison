@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.Runtime.InteropServices;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -20,6 +21,46 @@ namespace MegaLife
         {
             public string Name, Path;
             public long Base, Size;
+        }
+
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
+        static extern IntPtr FindWindowW(string cls, string title);
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
+        static extern IntPtr FindWindowExW(IntPtr parent, IntPtr after, string cls, string title);
+        [DllImport("user32.dll", CharSet = CharSet.Unicode, EntryPoint = "SendMessageW")]
+        static extern IntPtr SendMessageText(IntPtr h, int msg, IntPtr wp, StringBuilder lp);
+        [DllImport("user32.dll", EntryPoint = "SendMessageW")]
+        static extern IntPtr SendMessageInt(IntPtr h, int msg, IntPtr wp, IntPtr lp);
+        [DllImport("user32.dll")]
+        static extern int GetWindowThreadProcessId(IntPtr h, out int pid);
+
+        // The text of the "SA:MP An exception occured" window (SA-MP does not always write crashinfo.txt).
+        static string CrashDialogText(int pid)
+        {
+            IntPtr w = IntPtr.Zero;
+            while ((w = FindWindowExW(IntPtr.Zero, w, null, "SA:MP An exception occured")) != IntPtr.Zero)
+            {
+                int owner;
+                GetWindowThreadProcessId(w, out owner);
+                if (owner != pid) continue;
+                var all = new StringBuilder();
+                IntPtr c = IntPtr.Zero;
+                while ((c = FindWindowExW(w, c, "Edit", null)) != IntPtr.Zero)
+                {
+                    int len = SendMessageInt(c, 0x000E /* WM_GETTEXTLENGTH */, IntPtr.Zero, IntPtr.Zero).ToInt32();
+                    if (len <= 0) continue;
+                    var sb = new StringBuilder(len + 1);
+                    SendMessageText(c, 0x000D /* WM_GETTEXT */, (IntPtr)(len + 1), sb);
+                    all.AppendLine(sb.ToString());
+                }
+                if (all.Length > 0) return all.ToString();
+            }
+            return null;
+        }
+
+        public static string ModulesFile
+        {
+            get { return System.IO.Path.Combine(Config.DataDir, "modules.txt"); }
         }
 
         public static string ReportFile
@@ -66,6 +107,7 @@ namespace MegaLife
                     try
                     {
                         p.Refresh();
+                        int before = mods.Count;
                         foreach (ProcessModule m in p.Modules)
                         {
                             var x = new Mod();
@@ -75,6 +117,7 @@ namespace MegaLife
                             x.Size = m.ModuleMemorySize;
                             mods[x.Name + "@" + x.Base.ToString("X")] = x;
                         }
+                        if (mods.Count != before) WriteModules(mods);
                     }
                     catch (Exception ex)
                     {
@@ -82,7 +125,22 @@ namespace MegaLife
                     }
                 }
 
-                // SA-MP writes crashinfo.txt when it shows "SA:MP has crashed" (the game is still open then)
+                // the "SA:MP has crashed" window (the game is still open while it is shown)
+                try
+                {
+                    if (!reported && !exited)
+                    {
+                        string dlg = CrashDialogText(pid);
+                        if (dlg != null)
+                        {
+                            reported = true;
+                            onCrash(Analyse(dlg, mods));
+                        }
+                    }
+                }
+                catch { }
+
+                // or crashinfo.txt, when SA-MP writes it
                 try
                 {
                     if (!reported && File.Exists(CrashInfoFile))
@@ -101,6 +159,21 @@ namespace MegaLife
                 if (exited) break;
                 Thread.Sleep(2000);
             }
+        }
+
+        static void WriteModules(Dictionary<string, Mod> mods)
+        {
+            try
+            {
+                var list = new List<Mod>(mods.Values);
+                list.Sort(delegate(Mod x, Mod y) { return x.Base.CompareTo(y.Base); });
+                var sb = new StringBuilder();
+                sb.AppendLine("Modules in gta_sa.exe - " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                foreach (Mod m in list)
+                    sb.AppendLine("0x" + m.Base.ToString("X8") + " - 0x" + (m.Base + m.Size).ToString("X8") + "  " + m.Name + "   " + m.Path);
+                File.WriteAllText(ModulesFile, sb.ToString(), new UTF8Encoding(false));
+            }
+            catch { }
         }
 
         static Mod Find(Dictionary<string, Mod> mods, long a)
@@ -156,7 +229,7 @@ namespace MegaLife
             foreach (Mod m in list)
                 sb.AppendLine("  0x" + m.Base.ToString("X8") + " - 0x" + (m.Base + m.Size).ToString("X8") + "  " + m.Name + "   " + m.Path);
             sb.AppendLine();
-            sb.AppendLine("---- SA-MP crashinfo.txt ----");
+            sb.AppendLine("---- SA-MP crash report ----");
             sb.AppendLine(info);
             try { File.WriteAllText(ReportFile, sb.ToString(), new UTF8Encoding(false)); }
             catch { }
