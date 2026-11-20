@@ -16,9 +16,9 @@ namespace MegaLife
     static class Config
     {
         public const string AppName = "Mega Life Launcher";
-        public const string AppVersion = "1.0.1";
+        public const string AppVersion = "1.0.2";
         // BDEL HADY: +1 for every new launcher you publish (pc.json "launcher.build" tells players to update)
-        public const int AppBuild = 2;
+        public const int AppBuild = 3;
 
         // Online list of files + launcher update (pc.json in the public GitHub repo). The files themselves
         // come from the MediaFire ZIP written in pc.json ("pack"); launcher.cfg can still point elsewhere for tests.
@@ -787,6 +787,19 @@ namespace MegaLife
         // Folders where loaders pick scripts and plugins up.
         static readonly string[] ModDirs = { "scripts", "plugins", "modloader" };
         static readonly string[] ScriptExt = { ".asi", ".cs", ".cleo", ".sf", ".lua", ".luac" };
+        // Well-known fixes that GTA packs need. SilentPatchSA.asi removes the DirectPlay dependency: without it
+        // Windows 10/11 asks for DirectPlay and the game does not start. They are kept (by file name) in the
+        // game folder and in scripts\ / plugins\. Cheat loaders (CLEO.asi, SAMPFUNCS.asi, MoonLoader.asi...) are
+        // never in this list.
+        static readonly string[] SafeAsi = {
+            "silentpatchsa.asi", "modloader.asi", "sampvoice.asi",
+            "refreshratefixbydarkp1xel32.asi", "refreshratefix.asi", "reffix.asi",
+            "sensfix.asi", "sensfix xy.asi", "sensfix_xy.asi", "y-axis_sensitivity_fix_gta3vcsa.asi",
+            "noshadows.asi", "normalmap.asi", "normalmapfix.asi", "colormod.asi", "ccolor_fast.asi", "ccolor_slow.asi",
+            "fix_skygrad.asi", "fix_sizemap.asi", "flickr.asi", "crashes.asi", "anticrasher037.asi",
+            "skygfx.asi", "widescreenfix.asi", "gtasa.widescreenfix.asi", "fpslimit.asi", "fpsboost by dapo.asi"
+        };
+
         // modloader keeps its graphics / model mods (.asi such as SkyGfx): only scripts are taken out there.
         static readonly string[] ModloaderScriptExt = { ".cs", ".cleo", ".sf", ".lua", ".luac" };
 
@@ -872,6 +885,7 @@ namespace MegaLife
                 try
                 {
                     if (ours.Contains(rel.Replace('\\', '/'))) continue;
+                    if (Array.IndexOf(SafeAsi, Path.GetFileName(full).ToLowerInvariant()) >= 0) continue;
                     if (allow.Count > 0 && allow.Contains(Util.Sha256File(full))) continue;
                     RemoveFile(full, Path.Combine(qdir, rel));
                     res.Removed.Add(rel);
