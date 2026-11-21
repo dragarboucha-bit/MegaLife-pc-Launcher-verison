@@ -96,6 +96,41 @@ namespace MegaLife
         static extern bool TerminateProcess(IntPtr h, uint code);
         [DllImport("kernel32.dll")]
         static extern bool CloseHandle(IntPtr h);
+        [DllImport("kernel32.dll", SetLastError = true)]
+        static extern bool ReadProcessMemory(IntPtr proc, IntPtr addr, byte[] buf, UIntPtr size, out UIntPtr read);
+        [DllImport("kernel32.dll", SetLastError = true)]
+        static extern bool VirtualProtectEx(IntPtr proc, IntPtr addr, UIntPtr size, uint newProtect, out uint oldProtect);
+
+        // Default GTA HUD hidden (the server draws its own with textdraws). GTA SA 1.0 US:
+        // CHud::DrawPlayerInfo (weapon icon, ammo, health, armour, breath, money) and CHud::DrawWanted.
+        // Each function is turned into "ret" only if its first bytes are the expected ones, so another exe is left alone.
+        static readonly int[] HudFuncs = { 0x58EAF0, 0x58D9A0 };
+        static readonly byte[][] HudBytes = {
+            new byte[] { 0x81, 0xEC, 0xA0, 0x01, 0x00, 0x00 },  // sub esp, 1A0h
+            new byte[] { 0x83, 0xEC, 0x4C, 0x53, 0x55, 0x56 },  // sub esp, 4Ch / push ebx, ebp, esi
+        };
+
+        static void HideDefaultHud(IntPtr proc)
+        {
+            for (int i = 0; i < HudFuncs.Length; i++)
+            {
+                try
+                {
+                    IntPtr at = (IntPtr)HudFuncs[i];
+                    byte[] cur = new byte[HudBytes[i].Length];
+                    UIntPtr n;
+                    if (!ReadProcessMemory(proc, at, cur, (UIntPtr)cur.Length, out n)) { Util.LogFile("HUD: cannot read 0x" + HudFuncs[i].ToString("X")); continue; }
+                    bool same = true;
+                    for (int k = 0; k < cur.Length; k++) if (cur[k] != HudBytes[i][k]) { same = false; break; }
+                    if (!same) { Util.LogFile("HUD: unknown gta_sa.exe at 0x" + HudFuncs[i].ToString("X") + ", default HUD kept"); continue; }
+                    uint old;
+                    VirtualProtectEx(proc, at, (UIntPtr)1, 0x40, out old);
+                    WriteProcessMemory(proc, at, new byte[] { 0xC3 }, (UIntPtr)1, out n);
+                    VirtualProtectEx(proc, at, (UIntPtr)1, old, out old);
+                }
+                catch (Exception e) { Util.LogFile("HUD: " + e.Message); }
+            }
+        }
 
         static string Resolve(string host)
         {
@@ -146,6 +181,7 @@ namespace MegaLife
                 WaitForSingleObject(th, 15000);
                 CloseHandle(th);
                 VirtualFreeEx(pi.hProcess, mem, UIntPtr.Zero, 0x8000);
+                HideDefaultHud(pi.hProcess);
                 ResumeThread(pi.hThread);
                 ok = true;
             }
