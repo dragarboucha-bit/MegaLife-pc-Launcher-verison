@@ -1,5 +1,5 @@
 {
-  "version": "510b6a8d2066",
+  "version": "6f66f86e8079",
   "files": [
     {
       "path": "models/txd/megalogo.txd",
@@ -23,8 +23,8 @@
     },
     {
       "path": "models/txd/ml_vehicle_hud.txd",
-      "size": 950440,
-      "sha256": "b3fb5686173269839f3da73809b742f92abaf6754471641b5cb673b4f33f53cd"
+      "size": 1098152,
+      "sha256": "5587ae9d7fe774c52a27a7dbf33165ef790754477edcd922a495f5aa5ed9bea5"
     },
     {
       "path": "models/txd/ml_branding.txd",
@@ -95,8 +95,8 @@
   "pack": {
     "url": "https://raw.githubusercontent.com/dragarboucha-bit/MegaLife-pc-Launcher-verison/main/packs/MegaLife_PC_Files.zip",
     "mirror": "",
-    "sha256": "510b6a8d20660183c1cf7bb2b56456ffb6cd2f7d7bb4a521f006e3e7939f76be",
-    "size": 4622103
+    "sha256": "6f66f86e80791f1803a930839ca7d3e79395e4de054b8ee31ab4d69f3a6f56a8",
+    "size": 4656171
   },
   "launcher": {
     "build": 1,
