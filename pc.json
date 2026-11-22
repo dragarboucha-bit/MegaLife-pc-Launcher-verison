@@ -92,12 +92,12 @@
       "sha256": "9354beb050850fb4c5188e45241d0aa661b6994b9353064ff1ade90d7aa5fcd8"
     }
   ],
-  "pack": {
-    "url": "https://raw.githubusercontent.com/dragarboucha-bit/MegaLife-pc-Launcher-verison/main/packs/MegaLife_PC_Files.zip",
-    "mirror": "",
-    "sha256": "5ed73c8ce53484ebbc1cc8b7f7ff91d32564777addc2b3ed0f3bd45cc277dfa1",
-    "size": 4660513
-  },
+ "pack": {
+  "url": "https://www.mediafire.com/file/lp9avgi8c4l03hl/MegaLife_PC_Files.zip/file",
+  "mirror": "https://raw.githubusercontent.com/dragarboucha-bit/MegaLife-pc-Launcher-verison/main/packs/MegaLife_PC_Files.zip",
+  "sha256": "5ed73c8ce53484ebbc1cc8b7f7ff91d32564777addc2b3ed0f3bd45cc277dfa1",
+  "size": 4660513
+},
   "launcher": {
     "build": 1,
     "version": "1.0.0",
