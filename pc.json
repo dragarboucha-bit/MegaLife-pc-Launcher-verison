@@ -1,10 +1,40 @@
 {
-  "version": "5ed73c8ce534",
+  "version": "5a8cefd51288",
   "files": [
     {
       "path": "models/txd/megalogo.txd",
       "size": 1048744,
       "sha256": "b9b92b71808d87d29f67f4f5bcfceb73f9eb5c059246c7b351205a62a309aa32"
+    },
+    {
+      "path": "models/txd/ml_branding.txd",
+      "size": 53800,
+      "sha256": "1855440eddfcd7e56b0314f73a0fd87a769d671fd948ae4f2d3a6eda6437e8c4"
+    },
+    {
+      "path": "models/txd/ml_hud.txd",
+      "size": 635192,
+      "sha256": "320ed93c58632d2ca25d277520f2957ebae1a8362df2d4bccf15d82b4dc74f00"
+    },
+    {
+      "path": "models/txd/ml_inv.txd",
+      "size": 868520,
+      "sha256": "70c0aff5c8d6975fee70eb53e6ea39bb7b22fa1ebd17ba3716b9569850df123f"
+    },
+    {
+      "path": "models/txd/ml_phone.txd",
+      "size": 1187368,
+      "sha256": "c95109bd6f8dab7f69c48c6bce7287004df79ce286c5c0877158d2f1bf884547"
+    },
+    {
+      "path": "models/txd/ml_radio.txd",
+      "size": 326952,
+      "sha256": "bad9b5bc821ab4750649464c6b20549ad7e35c95d15b26cd31d1a95abbed4947"
+    },
+    {
+      "path": "models/txd/ml_vehicle_hud.txd",
+      "size": 1428392,
+      "sha256": "d210e62199c434f52d7f1e4b26bb9c27be84ecb98f9c16a53930d1310e27d915"
     },
     {
       "path": "models/txd/mlphone.txd",
@@ -15,26 +45,6 @@
       "path": "models/txd/velohost.txd",
       "size": 524456,
       "sha256": "d413261ed0c4741119ca3a7fccb5cb554430b537b5a78f966232cdc10287224c"
-    },
-    {
-      "path": "models/txd/ml_hud.txd",
-      "size": 160296,
-      "sha256": "932bb4046993fd2c4850d41ac649e4ca74de916443e2eb92dc75497b8f8949bb"
-    },
-    {
-      "path": "models/txd/ml_vehicle_hud.txd",
-      "size": 1428392,
-      "sha256": "d210e62199c434f52d7f1e4b26bb9c27be84ecb98f9c16a53930d1310e27d915"
-    },
-    {
-      "path": "models/txd/ml_branding.txd",
-      "size": 53800,
-      "sha256": "1855440eddfcd7e56b0314f73a0fd87a769d671fd948ae4f2d3a6eda6437e8c4"
-    },
-    {
-      "path": "models/txd/ml_phone.txd",
-      "size": 1002024,
-      "sha256": "f01b4daafa6a6bdc5942e2eedbf91b714793e43385882460ac2577e63a594e8e"
     }
   ],
   "plugins": [
@@ -66,16 +76,6 @@
       "sha256": "9a730eccfbd6d342cabfef794385a6cb5fafea07fdf98ad06e7e7a8542644b02"
     },
     {
-      "path": "models/gta3.img/wmymech.dff",
-      "size": 145053,
-      "sha256": "98e81a1ecbe2ab9533b1431110a57263e1076023675f9b93d9b58c471ef643c9"
-    },
-    {
-      "path": "models/gta3.img/wmymech.txd",
-      "size": 262312,
-      "sha256": "a5735d13297503485a80f6f47605930c5d9a2306317cef1aa0bc06ec1bad0aa9"
-    },
-    {
       "path": "models/gta3.img/esperant.dff",
       "size": 628532,
       "sha256": "03e7506a85fa8a5152d212e4c67e901458d2cf1fb08d5d9caf5216bb0be40fa8"
@@ -84,6 +84,36 @@
       "path": "models/gta3.img/esperant.txd",
       "size": 99368,
       "sha256": "92283943aa2a260c3515ee22ccde8d9df6c8931a338f4917c946f146130ca8ed"
+    },
+    {
+      "path": "models/gta3.img/fortune.dff",
+      "size": 6805504,
+      "sha256": "a3e13149e30e381b78e1d84245d90c015421bfe6227152b52e4f2eeeb7133371"
+    },
+    {
+      "path": "models/gta3.img/fortune.txd",
+      "size": 572844,
+      "sha256": "464e018ad66b5bbbf751ac0ed6b27152cf8d96f436716985730a3ef9da3a37b3"
+    },
+    {
+      "path": "models/gta3.img/sentinel.dff",
+      "size": 9457664,
+      "sha256": "ee5664600fa6709c8ba60b009f938905a862c5545694600e0829df7b1f9686db"
+    },
+    {
+      "path": "models/gta3.img/sentinel.txd",
+      "size": 110300,
+      "sha256": "d9266d5e67f1d1da625e2c5e0fbc9e9d92ba68dfaf75d5e3be22f9764e8f6741"
+    },
+    {
+      "path": "models/gta3.img/wmymech.dff",
+      "size": 145053,
+      "sha256": "98e81a1ecbe2ab9533b1431110a57263e1076023675f9b93d9b58c471ef643c9"
+    },
+    {
+      "path": "models/gta3.img/wmymech.txd",
+      "size": 262312,
+      "sha256": "a5735d13297503485a80f6f47605930c5d9a2306317cef1aa0bc06ec1bad0aa9"
     }
   ],
   "allow": [
@@ -92,12 +122,12 @@
       "sha256": "9354beb050850fb4c5188e45241d0aa661b6994b9353064ff1ade90d7aa5fcd8"
     }
   ],
- "pack": {
-  "url": "https://www.mediafire.com/file/lp9avgi8c4l03hl/MegaLife_PC_Files.zip/file",
-  "mirror": "https://raw.githubusercontent.com/dragarboucha-bit/MegaLife-pc-Launcher-verison/main/packs/MegaLife_PC_Files.zip",
-  "sha256": "5ed73c8ce53484ebbc1cc8b7f7ff91d32564777addc2b3ed0f3bd45cc277dfa1",
-  "size": 4660513
-},
+  "pack": {
+    "url": "https://www.mediafire.com/file/lp9avgi8c4l03hl/MegaLife_PC_Files.zip/file",
+    "mirror": "",
+    "sha256": "5a8cefd512881142c9d6deb72dc296b0b7e9d5fa1bc1dd05f7b6969db33295ec",
+    "size": 12236683
+  },
   "launcher": {
     "build": 1,
     "version": "1.0.0",
