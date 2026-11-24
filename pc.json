@@ -1,5 +1,5 @@
 {
-  "version": "1f00ae66f3e9",
+  "version": "d00bd82e67e6",
   "files": [
     {
       "path": "models/txd/megalogo.txd",
@@ -13,13 +13,18 @@
     },
     {
       "path": "models/txd/ml_hud.txd",
-      "size": 1798840,
-      "sha256": "6b1cebdd70ade7b28af467f66e9bb3ccfc8736aff5ab92b08e600857f93b51d3"
+      "size": 1749688,
+      "sha256": "14d291ff5a16059c948e02dec7823a4cf6c3d1573f04af549d9676c27e4ecabf"
     },
     {
       "path": "models/txd/ml_inv.txd",
       "size": 868520,
       "sha256": "70c0aff5c8d6975fee70eb53e6ea39bb7b22fa1ebd17ba3716b9569850df123f"
+    },
+    {
+      "path": "models/txd/ml_login.txd",
+      "size": 1395112,
+      "sha256": "12ffc352e44317d34eff8660a65455fa15e736070d813f85ea55d0acf3319b60"
     },
     {
       "path": "models/txd/ml_phone.txd",
@@ -30,6 +35,11 @@
       "path": "models/txd/ml_radio.txd",
       "size": 326952,
       "sha256": "bad9b5bc821ab4750649464c6b20549ad7e35c95d15b26cd31d1a95abbed4947"
+    },
+    {
+      "path": "models/txd/ml_ui.txd",
+      "size": 662952,
+      "sha256": "a6ed92a31a7a4827819b0e99183a26045b1af053f42e19b26587b982b2e56ef0"
     },
     {
       "path": "models/txd/ml_vehicle_hud.txd",
@@ -125,8 +135,8 @@
   "pack": {
     "url": "https://www.mediafire.com/file/lp9avgi8c4l03hl/MegaLife_PC_Files.zip/file",
     "mirror": "",
-    "sha256": "1f00ae66f3e9c36edf0f2727b06292b16f09455f621cce6b17ebdf2330f44326",
-    "size": 12335687
+    "sha256": "d00bd82e67e6a5ed5863244cd6e4036f864a9042e8a671d672e0baca1288c42e",
+    "size": 12740989
   },
   "launcher": {
     "build": 1,
