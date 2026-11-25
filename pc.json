@@ -1,5 +1,5 @@
 {
-  "version": "b78bf0f2825a",
+  "version": "afe526861173",
   "files": [
     {
       "path": "models/txd/megalogo.txd",
@@ -48,8 +48,8 @@
     },
     {
       "path": "models/txd/ml_wheel.txd",
-      "size": 1498024,
-      "sha256": "f87ea2e0e19dca412638053f4546e12eb9f05ff02315bffef0053232c6400d2c"
+      "size": 1563688,
+      "sha256": "782e641d2b271f94bff7719d21cbd847d48eb6fc517ffeeb1b09d980ce385029"
     },
     {
       "path": "models/txd/mlphone.txd",
@@ -80,8 +80,8 @@
     },
     {
       "path": "MegaEye.asi",
-      "size": 15360,
-      "sha256": "f39232fa4f5117786d1dd8726fdd09680cc9bb4f1ecd2f08aee8179fbfd13a9d"
+      "size": 20480,
+      "sha256": "ba36543724eed065ec91b66a7993cd75c90bb8def1290913381571d5f6002caf"
     }
   ],
   "img": [
@@ -145,8 +145,8 @@
   "pack": {
     "url": "https://www.mediafire.com/file/lp9avgi8c4l03hl/MegaLife_PC_Files.zip/file",
     "mirror": "",
-    "sha256": "b78bf0f2825afcf05a0717418d952462d69ba3ea331adea7a47ee24164e42c89",
-    "size": 13017670
+    "sha256": "afe5268611738e28b20991c9a16bb01ffec2da0f1a090d1fd72235a84af2ff22",
+    "size": 13019890
   },
   "launcher": {
     "build": 1,
