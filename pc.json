@@ -1,5 +1,5 @@
 {
-  "version": "62f8ba8e8673",
+  "version": "92d729aafd8f",
   "files": [
     {
       "path": "models/txd/megalogo.txd",
@@ -80,8 +80,8 @@
     },
     {
       "path": "MegaEye.asi",
-      "size": 12800,
-      "sha256": "25590cd5ab2fee9e11b71a962dc03252f0aa27a556a73679da0294fc193591e5"
+      "size": 14336,
+      "sha256": "89691088867778be84c96b8f023a4622e5ea012c6cc007796022968056390948"
     }
   ],
   "img": [
@@ -145,8 +145,8 @@
   "pack": {
     "url": "https://www.mediafire.com/file/lp9avgi8c4l03hl/MegaLife_PC_Files.zip/file",
     "mirror": "",
-    "sha256": "62f8ba8e8673e183d49b2da1b0f8c98008b82f5171292869d0326831a615135b",
-    "size": 13016972
+    "sha256": "92d729aafd8f2db0feda76a2bc81b71064a3ad748d224ec8f47c7dddc435c82a",
+    "size": 13017363
   },
   "launcher": {
     "build": 1,
