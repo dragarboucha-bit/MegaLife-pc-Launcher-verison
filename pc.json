@@ -1,5 +1,5 @@
 {
-  "version": "c1c000e3ea24",
+  "version": "36171b499927",
   "files": [
     {
       "path": "models/txd/megalogo.txd",
@@ -23,8 +23,8 @@
     },
     {
       "path": "models/txd/ml_login.txd",
-      "size": 1395112,
-      "sha256": "12ffc352e44317d34eff8660a65455fa15e736070d813f85ea55d0acf3319b60"
+      "size": 2877736,
+      "sha256": "79e7851564426ea12f0d0fe0b768505ed1575e2a48b0562bf720be5a0d82ec79"
     },
     {
       "path": "models/txd/ml_phone.txd",
@@ -60,6 +60,31 @@
       "path": "models/txd/velohost.txd",
       "size": 524456,
       "sha256": "d413261ed0c4741119ca3a7fccb5cb554430b537b5a78f966232cdc10287224c"
+    },
+    {
+      "path": "models/txd/ml_gift.txd",
+      "size": 1038888,
+      "sha256": "e636a06cdb7b72db296c93c1a1faa5df36b286248f291ca89e1368eac80dfd6c"
+    },
+    {
+      "path": "models/txd/ml_mission.txd",
+      "size": 1019176,
+      "sha256": "fe1dee83f0a49e17327f0bda52680e631317521f93a9d7ce110b719dc7c7eeb6"
+    },
+    {
+      "path": "models/txd/ml_garage.txd",
+      "size": 1022632,
+      "sha256": "798d833d48c3268ba0d16ebd50acb05eff7a636e808f3659802de362fd5d8b19"
+    },
+    {
+      "path": "models/txd/ml_xmas.txd",
+      "size": 1428136,
+      "sha256": "062b1b3c3aa349549cc48679b0a9cee3d876574836d1e62f4abc4be2da7d6c16"
+    },
+    {
+      "path": "models/txd/ml_spin.txd",
+      "size": 7196584,
+      "sha256": "f8fb546084986c3f0dc0fa015e52adf388d9841f38a2695a2f9f866358a644c0"
     }
   ],
   "plugins": [
@@ -145,8 +170,8 @@
   "pack": {
     "url": "https://www.mediafire.com/file/lp9avgi8c4l03hl/MegaLife_PC_Files.zip/file",
     "mirror": "",
-    "sha256": "c1c000e3ea24ddec124732b13f42798648bb99cbcf271563ddbd9e338096707c",
-    "size": 13019259
+    "sha256": "36171b49992746ef19600124a6c93af0007066c1108d4f0446ed432d236848d1",
+    "size": 14940645
   },
   "launcher": {
     "build": 1,
