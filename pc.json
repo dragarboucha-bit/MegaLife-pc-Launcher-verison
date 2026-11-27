@@ -1,5 +1,6 @@
 {
-  "version": "36171b499927",
+  "version": "7cee6e3abccb",
+  "winter": true,
   "files": [
     {
       "path": "models/txd/megalogo.txd",
@@ -83,8 +84,18 @@
     },
     {
       "path": "models/txd/ml_spin.txd",
-      "size": 7196584,
-      "sha256": "f8fb546084986c3f0dc0fa015e52adf388d9841f38a2695a2f9f866358a644c0"
+      "size": 18056812,
+      "sha256": "62ea81bfbf6f491b78fd67c8e37df6bbcb11f2fca0e06462a603226033049d22"
+    },
+    {
+      "path": "models/txd/ml_xlogin.txd",
+      "size": 5281288,
+      "sha256": "4e5cecb03cd904b0733e012d2b5ea99e757caa4e1df297cf4082054ac2e15196"
+    },
+    {
+      "path": "models/txd/ml_xui.txd",
+      "size": 2791944,
+      "sha256": "7b80ac4f92aa9add8925345478467c3895000e6f297483aff475e1a3130e1bb2"
     }
   ],
   "plugins": [
@@ -159,6 +170,96 @@
       "path": "models/gta3.img/wmymech.txd",
       "size": 262312,
       "sha256": "a5735d13297503485a80f6f47605930c5d9a2306317cef1aa0bc06ec1bad0aa9"
+    },
+    {
+      "path": "models/gta3.img/army.dff",
+      "size": 3395799,
+      "sha256": "74d5777fdbb9b5014596485863a59d0786bf327f1ba56513cbe9796080ff0593"
+    },
+    {
+      "path": "models/gta3.img/army.txd",
+      "size": 2000296,
+      "sha256": "edea784c4502013ebf9924318eb863f27befb5999485da8ac60530dff2654dc3"
+    },
+    {
+      "path": "models/gta3.img/laemt1.dff",
+      "size": 3395799,
+      "sha256": "76ae42d5c640a21e4aa88f66d8c765e11ba8a52139d9ceddc84ff76b2a4efad4"
+    },
+    {
+      "path": "models/gta3.img/laemt1.txd",
+      "size": 2000296,
+      "sha256": "35f443a172cbf9629950aef7341f4b23a6444be9e75a2bcb75619d02913a80e8"
+    },
+    {
+      "path": "models/gta3.img/lapd1.dff",
+      "size": 3395799,
+      "sha256": "ab546e5d5e17266b718d61ed903cc28a90ec6d69c868591064e5c3e62afebd25"
+    },
+    {
+      "path": "models/gta3.img/lapd1.txd",
+      "size": 2000296,
+      "sha256": "79cc468761e56e9062cbe1d393cf346ec5143722fd2422e260dfff1eabf0b035"
+    },
+    {
+      "path": "models/gta3.img/lvemt1.dff",
+      "size": 3395799,
+      "sha256": "76ae42d5c640a21e4aa88f66d8c765e11ba8a52139d9ceddc84ff76b2a4efad4"
+    },
+    {
+      "path": "models/gta3.img/lvemt1.txd",
+      "size": 2000296,
+      "sha256": "35f443a172cbf9629950aef7341f4b23a6444be9e75a2bcb75619d02913a80e8"
+    },
+    {
+      "path": "models/gta3.img/lvpd1.dff",
+      "size": 3395799,
+      "sha256": "680fde67bc2cccdfdf4c81aadc0460e1b06b5791a45fb0f72cacd8069dd98ac5"
+    },
+    {
+      "path": "models/gta3.img/lvpd1.txd",
+      "size": 2000296,
+      "sha256": "88772a1c22c84834a1e8888a9898c83c8a013f4d9c9f5cb0e01a31615f3b0ffb"
+    },
+    {
+      "path": "models/gta3.img/sfemt1.dff",
+      "size": 3395799,
+      "sha256": "76ae42d5c640a21e4aa88f66d8c765e11ba8a52139d9ceddc84ff76b2a4efad4"
+    },
+    {
+      "path": "models/gta3.img/sfemt1.txd",
+      "size": 2000296,
+      "sha256": "35f443a172cbf9629950aef7341f4b23a6444be9e75a2bcb75619d02913a80e8"
+    },
+    {
+      "path": "models/gta3.img/sfpd1.dff",
+      "size": 3395799,
+      "sha256": "ab546e5d5e17266b718d61ed903cc28a90ec6d69c868591064e5c3e62afebd25"
+    },
+    {
+      "path": "models/gta3.img/sfpd1.txd",
+      "size": 2000296,
+      "sha256": "79cc468761e56e9062cbe1d393cf346ec5143722fd2422e260dfff1eabf0b035"
+    },
+    {
+      "path": "models/gta3.img/swat.dff",
+      "size": 3395799,
+      "sha256": "ba3db5780e23c721fd0a86fe30205252fa233ed1b85174a4b644d0514a11b8b5"
+    },
+    {
+      "path": "models/gta3.img/swat.txd",
+      "size": 2000296,
+      "sha256": "b35004bb7a9494ce99e4e783c12282b47da15ba5a04fd0ac0cec9bd20a25cbdd"
+    },
+    {
+      "path": "models/gta3.img/wmoice.dff",
+      "size": 3452823,
+      "sha256": "4aa6a69d2980bfcd926bd8bd2afd2ed42d14d21b4a08d76e348ccfcd6b15857b"
+    },
+    {
+      "path": "models/gta3.img/wmoice.txd",
+      "size": 2000296,
+      "sha256": "c3e713040bac70e0ab0e34195c411720cafc4437273363ac8052d9b3f3c4578a"
     }
   ],
   "allow": [
@@ -170,8 +271,8 @@
   "pack": {
     "url": "https://www.mediafire.com/file/lp9avgi8c4l03hl/MegaLife_PC_Files.zip/file",
     "mirror": "",
-    "sha256": "36171b49992746ef19600124a6c93af0007066c1108d4f0446ed432d236848d1",
-    "size": 14940645
+    "sha256": "7cee6e3abccbc48f7e6554c323ca743a5c292b98852f061fb83cacd264c03aae",
+    "size": 42168632
   },
   "launcher": {
     "build": 1,
