@@ -1,5 +1,5 @@
 {
-  "version": "7cee6e3abccb",
+  "version": "330d441beadc",
   "winter": true,
   "files": [
     {
@@ -260,6 +260,16 @@
       "path": "models/gta3.img/wmoice.txd",
       "size": 2000296,
       "sha256": "c3e713040bac70e0ab0e34195c411720cafc4437273363ac8052d9b3f3c4578a"
+    },
+    {
+      "path": "models/gta3.img/dnb1.dff",
+      "size": 1983535,
+      "sha256": "711a45815f42a0cc9092a2873b3140ecd09ba9a5f76fe338c84f472ba4574302"
+    },
+    {
+      "path": "models/gta3.img/dnb1.txd",
+      "size": 1020576,
+      "sha256": "9665a3f0ce7c0deec764a8c52d418ef0bf512df6818e53a5225a562be7051f8d"
     }
   ],
   "allow": [
@@ -271,8 +281,8 @@
   "pack": {
     "url": "https://www.mediafire.com/file/lp9avgi8c4l03hl/MegaLife_PC_Files.zip/file",
     "mirror": "",
-    "sha256": "7cee6e3abccbc48f7e6554c323ca743a5c292b98852f061fb83cacd264c03aae",
-    "size": 42168632
+    "sha256": "330d441beadca570e4c06e07c528cd8dbb782ba50072a02f3aedc92a8da23a25",
+    "size": 43576969
   },
   "launcher": {
     "build": 1,
